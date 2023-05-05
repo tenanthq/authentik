@@ -3015,7 +3015,7 @@ use-chardet-on-py3 = ["chardet (>=3.0.2,<6)"]
 name = "requests-mock"
 version = "1.10.0"
 description = "Mock out responses from the requests package"
-category = "dev"
+category = "main"
 optional = false
 python-versions = "*"
 files = [
@@ -4150,4 +4150,4 @@ files = [
 [metadata]
 lock-version = "2.0"
 python-versions = "^3.11"
-content-hash = "42e270c3cced3cd91e79fdaf382df778edbcbae70ea5b061753e4ca8521480e3"
+content-hash = "f8bc900716cdda3bc34be444ee349715444843bcbcc72cc221531793e143da63"

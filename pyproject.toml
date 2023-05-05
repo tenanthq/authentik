@@ -168,6 +168,7 @@ xmlsec = "*"
 zxcvbn = "*"
 watchdog = "*"
 pydantic-scim = "^0.0.7"
+requests-mock = "1.10.0"
 
 [tool.poetry.dev-dependencies]
 bandit = "*"

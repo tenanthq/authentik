@@ -1,5 +1,5 @@
 # Stage 1: Build website
-FROM --platform=amd64 docker.io/node:20 as website-builder
+FROM --platform=linux/amd64 docker.io/node:20 as website-builder
 
 COPY ./website /work/website/
 COPY ./blueprints /work/blueprints/
@@ -10,7 +10,7 @@ WORKDIR /work/website
 RUN npm ci && npm run build-docs-only
 
 # Stage 2: Build webui
-FROM --platform=amd64 docker.io/node:20 as web-builder
+FROM --platform=linux/amd64 docker.io/node:20 as web-builder
 
 COPY ./web /work/web/
 COPY ./website /work/website/
@@ -20,7 +20,7 @@ WORKDIR /work/web
 RUN npm ci && npm run build
 
 # Stage 3: Poetry to requirements.txt export
-FROM docker.io/python:3.11.3-slim-bullseye AS poetry-locker
+FROM docker.io/python:3.11.3-bullseye AS poetry-locker
 
 WORKDIR /work
 COPY ./pyproject.toml /work
@@ -31,7 +31,7 @@ RUN pip install --no-cache-dir poetry && \
     poetry export -f requirements.txt --dev --output requirements-dev.txt
 
 # Stage 4: Build go proxy
-FROM docker.io/golang:1.20.4-bullseye AS go-builder
+FROM docker.io/golang:1.20.3-bullseye AS go-builder
 
 WORKDIR /work
 
@@ -62,7 +62,7 @@ RUN --mount=type=secret,id=GEOIPUPDATE_ACCOUNT_ID \
     "
 
 # Stage 6: Run
-FROM docker.io/python:3.11.3-bullseye AS final-image
+FROM docker.io/python:3.11.3-slim-bullseye AS final-image
 
 LABEL org.opencontainers.image.url https://goauthentik.io
 LABEL org.opencontainers.image.description goauthentik.io Main server image, see https://goauthentik.io for more info.
